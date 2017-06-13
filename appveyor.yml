@@ -50,3 +50,14 @@ build_script:
 artifacts:
 - path: build\*.pyd
   name: Module
+deploy:
+  - provider: GitHub
+    release: NIntegrate-v$(APPVEYOR_BUILD_VERSION)
+    auth_token:
+      secure: SC6KIAfiwbX7ETfKEct7LkHILk4ni6rFBDFToSYT9p1OkOiUwf5eO2Ak29ZXlhlM
+    artifact: Module
+    draft: true
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: true
