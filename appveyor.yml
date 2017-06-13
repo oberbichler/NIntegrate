@@ -1,0 +1,52 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+init:
+- cmd: |
+    "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd" -arch=x86
+- ps: |
+    # Anaconda Python 3.6
+    $env:PATH = "C:\Miniconda36\;C:\Miniconda36\Scripts\;$env:PATH"
+    $env:PYTHONHOME = "C:\Miniconda36"
+install:
+- ps: |
+    $tmp = "C:\tmp"
+    New-Item -ItemType directory -Path $tmp > $null
+    
+    pip install colorama
+    
+    $env:Path += ';C:\tools'
+
+    cd ${tmp} > $null
+    Start-FileDownload https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip -FileName ninja.zip
+    7z x ninja.zip -oC:\tools\ > $null
+    
+    cd ${tmp} > $null
+    Start-FileDownload 'https://github.com/pybind/pybind11/archive/v2.1.1.zip' -FileName pybind11.zip
+    7z x pybind11.zip > $null
+    cd pybind11-2.1.1 > $null
+    mkdir build > $null
+    cd build > $null
+    cmake -GNinja -DPYBIND11_TEST=0 ..
+    ninja install
+
+    cd ${tmp} > $null
+    Start-FileDownload 'http://bitbucket.org/eigen/eigen/get/3.3.3.zip' -FileName eigen.zip
+    7z x eigen.zip > $null
+    cd eigen-eigen-67e894c6cd8f > $null
+    mkdir build > $null
+    cd build > $null
+    cmake -GNinja ..
+    ninja install
+    
+    cd ${env:APPVEYOR_BUILD_FOLDER} > $null
+    
+    Remove-Item -Recurse -Force ${tmp} > $null
+build_script:
+- cmd: |
+    mkdir build
+    cd build
+    cmake .. -GNinja
+    ninja
+artifacts:
+- path: build\*.pyd
+  name: Module
