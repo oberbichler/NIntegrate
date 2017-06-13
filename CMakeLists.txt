@@ -11,7 +11,7 @@ find_package (OpenGL REQUIRED)
 include_directories (${OPENGL_INCLUDE_DIRS})
 link_libraries(${OPENGL_LIBRARIES})
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wno-deprecated")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++14")
 
 add_library(NIntegrate MODULE
     src/interface_py.cc
