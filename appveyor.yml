@@ -54,7 +54,7 @@ deploy:
   - provider: GitHub
     release: NIntegrate-v$(APPVEYOR_BUILD_VERSION)
     auth_token:
-      secure: SC6KIAfiwbX7ETfKEct7LkHILk4ni6rFBDFToSYT9p1OkOiUwf5eO2Ak29ZXlhlM
+      secure: Dv8HlL4XWhiVb5S+WXs/OMjJoM3qtpc9T+pMJ1uO7hfBHH5qspgHvqNEn0QX6mlK
     artifact: Module
     draft: true
     prerelease: false
