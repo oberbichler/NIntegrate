@@ -1,5 +1,7 @@
 # NIntegrate
 
+[![AppVeyor](https://img.shields.io/appveyor/ci/oberbichler/NIntegrate.svg)]()
+
 **Was kann man damit machen?**
 
 Die Bibliothek ermöglicht es, ein polygonales Gebiet in Drei- und Vierecke aufzuteilen, die Integrationspunkte zu bestimmen und damit schließlich eine Funktion über das Gebiet zu integrieren.
